@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+var cors = require('cors')
 const app = express();
-
+app.use(cors())
 // Settings
 const SERVER_PORT = 3000; // Listening port
 const REQUEST_SUCCESS_RATE = 1; // Optional challenge: set this to have requests to backend randomly failing
@@ -41,7 +41,7 @@ console.log('[INIT] Loaded data...');
 // Process data
 
 // Shift all audience timestamps to end on Date.now() instead
-const nowTimestamp = Date.now();
+/*const nowTimestamp = Date.now();
 for (const data of audienceData.values()) {
   // Calculate time offset
   const lastEntry = data.audience.slice(-1)[0];
@@ -69,6 +69,7 @@ for (const data of bandwidthData.values()) {
     }
   }
 }
+*/
 
 
 // Remove unused fields from raw data
@@ -155,11 +156,11 @@ app.post('/auth', (request, response) => {
   const userData = clientData[request.body.identifiant];
   if (userData && userData.password === request.body.password) {
     // Check if user has already logged in
-    if (userSet.has(request.body.identifiant)) {
+    /*if (userSet.has(request.body.identifiant)) {
       response.status(403).send("User already logged in");
       console.log('POST, /auth 403');
       return;
-    }
+    }*/
 
     // Generate and store token
     const token = Math.round(Math.random() * Number.MAX_SAFE_INTEGER).toString(16);
